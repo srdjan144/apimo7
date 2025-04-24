@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/biens.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/biens", "dest": "api/biens.js" }
+  ]
+}
