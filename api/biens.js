@@ -2,23 +2,24 @@ const fetch = require("node-fetch");
 
 module.exports = async (req, res) => {
   const token = process.env.APIMO_TOKEN;
-  const providerId = process.env.APIMO_PROVIDER_ID;
+  const agencyId = process.env.APIMO_AGENCY_ID;
 
-  if (!token || !providerId) {
+  if (!token || !agencyId) {
     return res.status(500).json({ error: "Missing API credentials" });
   }
 
-  const url = `https://apimo.net/fr/api/webservice/?action=get_estates_list&provider=${providerId}&lang=fr`;
+  const url = `https://api.apimo.pro/agencies/${agencyId}/properties`;
 
   try {
     const response = await fetch(url, {
       headers: {
-        Authorization: token
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json"
       }
     });
 
     if (!response.ok) {
-      throw new Error("API response not ok");
+      throw new Error(`API response not ok: ${response.status}`);
     }
 
     const data = await response.json();
