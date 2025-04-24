@@ -14,12 +14,12 @@ module.exports = async (req, res) => {
     const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,
-        Accept: "application/json"
-      }
+        Accept: "application/json",
+      },
     });
 
     if (!response.ok) {
-      throw new Error(`API response not ok: ${response.status}`);
+      throw new Error("API response not ok");
     }
 
     const data = await response.json();
